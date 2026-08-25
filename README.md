@@ -18,46 +18,42 @@ Di dalam repositori ini, saya mempraktikkan berbagai konsep inti OOP di Java, an
 
 ---
 
-## 📂 Struktur Repositori
+### 📂 Struktur Repositori
 
 Agar rapi dan memisahkan antara kode sumber (`.java`) dan hasil kompilasi (`.class`), file dan kode diatur dengan struktur berikut:
 
 ```text
 Java_SMT3/
-├── 01-class-and-object/ # Implementasi dasar Class dan Object
-├── 02-encapsulation/    # Latihan access modifiers dan encapsulation
-├── 03-inheritance/      # Latihan pewarisan (extends)
-├── 04-polymorphism/     # Latihan polimorfisme (overriding & overloading)
-├── 05-abstraction/      # Latihan Abstract Class dan Interface
-├── percobaan/           # Eksperimen kode bebas
-│   ├── src/             # Kode sumber (.java)
-│   └── bin/             # Hasil kompilasi (.class)
-└── README.md            # Dokumentasi repositori
+├── class-and-object/ # Implementasi dasar Class dan Object
+├── encapsulation/    # Latihan access modifiers dan encapsulation
+├── inheritance/      # Latihan pewarisan (extends)
+├── polymorphism/     # Latihan polimorfisme (overriding & overloading)
+├── abstraction/      # Latihan Abstract Class dan Interface
+├── trial/            # Eksperimen kode bebas
+└── README.md         # Dokumentasi repositori
 ```
 
 _(Catatan: Struktur folder ini akan terus diperbarui seiring berjalannya semester)_
 
-# 🛠️ Prasyarat & Cara Menjalankan (How to Run)
+### 🛠️ Prasyarat & Cara Menjalankan (How to Run)
 
 Semua kode dalam repositori ini murni ditulis menggunakan Java. Untuk menjalankan file-file yang ada di sini, pastikan Anda memiliki compiler Java seperti JDK (Java Development Kit) di sistem operasi Anda.
 Langkah-langkah menjalankan kode melalui terminal:
 
 ```bash
-
-# Buka terminal pindah ke folder CPP kalian
+# Buka terminal pindah ke folder Java kalian
 cd nama_folder/
 
-# compile file cpp kalian ke bentuk file binary
-g++ coba.cpp -o coba
-
-# jalankan file binary yang sudah di compile tadi
-./coba
+# compile file Java kalian ke bentuk file binary
+javac namaFile.java
 
 ```
 
-**DISCLAIMER : DEVICE YANG DIGUNAKAN MENGGUNAKAN LINUX FEDORA YANG COCOK UNTUK DEVELOPMENT DAN SELALU UPDATE, JADI MUNGKIN TIDAK COMPATIBLE DENGAN BEBERAPA OS LAIN ATAU DEVICE LAIN😉😉**
+> [!NOTE]
+> **Device yang digunakan menggunakan linux Fedora yang cocok untuk development dan memiliki update setaip hari
+> jadi tidak menutup kemungkinan di beberapa OS lain akan tidak compatible dengan cara ini**
+>
+> **File-File berikut di compile menggunakan CLI/Terminal secara langsung
+> dan untuk beberapa code editor memiliki cara compile mereka sendiri seperti extension VS code, dan IntelliJ IDEA**
 
-Dibuat dan dirawat oleh GoBlock1938 untuk pembelajaran Semester 3.
-
-**Saran Tambahan untuk Anda:**
-Mengingat saat ini Anda baru memiliki file `coba.cpp` [3], saya sangat menyarankan Anda untuk mulai memindahkan file tersebut ke dalam folder khusus seperti `percobaan/` atau `eksperimen/` agar halaman utama repositori Anda tidak berantakan seiring bertambahnya jumlah file ke depannya.
+Repositori ini Dibuat dan dirawat oleh GoBlock1938 secara mandiri untuk pembelajaran Semester 3.
