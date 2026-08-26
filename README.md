@@ -29,13 +29,13 @@ Java_SMT3/
 ├── inheritance/      # Latihan pewarisan (extends)
 ├── polymorphism/     # Latihan polimorfisme (overriding & overloading)
 ├── abstraction/      # Latihan Abstract Class dan Interface
-├── trial/            # Eksperimen kode bebas
+├── trial/            # Eksperimen kode bebas dan contoh syntax
 └── README.md         # Dokumentasi repositori
 ```
 
 _(Catatan: Struktur folder ini akan terus diperbarui seiring berjalannya semester)_
 
-### 🛠️ Prasyarat & Cara Menjalankan (How to Run)
+## 🛠️ Prasyarat & Cara Menjalankan (How to Run)
 
 Semua kode dalam repositori ini murni ditulis menggunakan Java. Untuk menjalankan file-file yang ada di sini, pastikan Anda memiliki compiler Java seperti JDK (Java Development Kit) di sistem operasi Anda.
 Langkah-langkah menjalankan kode melalui terminal:
@@ -45,12 +45,12 @@ Langkah-langkah menjalankan kode melalui terminal:
 cd nama_folder/
 
 # compile file Java kalian ke bentuk file binary
-javac namaFile.java
+java namaFile.java
 
 ```
 
 > [!NOTE]
-> **Device yang digunakan menggunakan linux Fedora yang cocok untuk development dan memiliki update setaip hari
+> **Device yang digunakan menggunakan linux Fedora yang menggunakan JRE (java runtime environment)
 > jadi tidak menutup kemungkinan di beberapa OS lain akan tidak compatible dengan cara ini**
 >
 > **File-File berikut di compile menggunakan CLI/Terminal secara langsung

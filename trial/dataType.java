@@ -66,6 +66,25 @@ public class dataType {
     System.out.println(thisFloat);
 
     // type data char
+    char n = 'N';
+    char e = 'E';
+    char o = 'O';
 
+    System.out.print(n);
+    System.out.print(e);
+    System.out.println(o);
+
+    // type data boolean
+    boolean benar = true;
+    boolean salah = false;
+
+    System.out.println(benar);
+    System.out.println(salah);
+
+    // type data string
+    String firstName = "Neo ";
+    String lastName = "Fahimanda";
+
+    System.out.println(firstName + lastName);
   }
 }
