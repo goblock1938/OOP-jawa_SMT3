@@ -30,6 +30,7 @@ Java_SMT3/
 ├── polymorphism/     # Latihan polimorfisme (overriding & overloading)
 ├── abstraction/      # Latihan Abstract Class dan Interface
 ├── trial/            # Eksperimen kode bebas dan contoh syntax
+├── tugasLatihan/            # Eksperimen kode bebas dan contoh syntax
 └── README.md         # Dokumentasi repositori
 ```
 
