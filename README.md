@@ -14,7 +14,7 @@ Di dalam repositori ini, saya mempraktikkan berbagai konsep inti OOP di Java, an
 - **Inheritance (Pewarisan)**: Bagaimana sebuah _child class_ mewarisi sifat dari _parent class_ menggunakan kata kunci `extends`.
 - **Polymorphism (Polimorfisme)**: Implementasi _Method Overloading_ dan _Method Overriding_ (`@Override`).
 - **Abstraction (Abstraksi)**: Penggunaan `abstract class` dan `interface`.
-- **Eksperimen & Percobaan Bebas**: Kumpulan kode uji coba (seperti `Main.java` / `Coba.java`) untuk menguji logika atau fitur baru Java.
+- **Eksperimen & percobaan Bebas**: Kumpulan kode uji coba (seperti `Main.java` / `Coba.java`) untuk menguji logika atau fitur baru Java.
 
 ---
 
