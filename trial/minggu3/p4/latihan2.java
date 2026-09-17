@@ -10,8 +10,8 @@ public class latihan2 {
     System.out.print("Masukkan berapa deret Fibonacci? ");
     int n = scanner.nextInt();
 
-    int a = 0;
-    int b = 1;
+    int a = 0; // nilai Fibonacci pertama
+    int b = 1; // nilai Fibonacci setelahnya
 
     System.out.print(n + " deret Fibonacci = ");
     for (int i = 1; i <= n; i++) {

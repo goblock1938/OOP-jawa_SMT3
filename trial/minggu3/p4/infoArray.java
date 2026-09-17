@@ -2,6 +2,7 @@ package trial.minggu3.p4;
 
 public class infoArray {
   public static void main() {
+    // entah, saya juga bingung
     int x[][][][] = new int[2][][][];
     x[0] = new int[1][][];
     x[0][0] = new int[2][];

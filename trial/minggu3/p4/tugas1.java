@@ -8,10 +8,10 @@ public class tugas1 {
         { 622, 127, 77, 955 }
     };
 
-    int searchFor = 12;
-    int rowFound = -1;
+    int searchFor = 12; // mencari data
+    int rowFound = -1; // diisi nilai agar bisa di rubah setelah di temukannya data
     int colFound = -1;
-    boolean found = false;
+    boolean found = false; // statement untuk data
 
     searchLoop: for (int i = 0; i < arrayOfInts.length; i++) {
       for (int j = 0; j < arrayOfInts[i].length; j++) {
@@ -19,7 +19,7 @@ public class tugas1 {
           found = true;
           rowFound = i;
           colFound = j;
-          break searchLoop; // Menghentikan kedua loop sekaligus
+          break searchLoop; // Menghentikan kedua loop sekaligus menggunakan label
         }
       }
     }
