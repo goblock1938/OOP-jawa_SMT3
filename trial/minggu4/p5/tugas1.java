@@ -20,11 +20,10 @@ public class tugas1 {
       }
     }
 
-    if (found > 0) {
+    if (found > 0)
       System.out.println("Output   : Karakter '" + karakter + "' Ditemukan sebanyak " + found);
-    } else {
+    else
       System.out.println("Output   : Karakter '" + karakter + "' tidak ditemukan dalam kalimat.");
-    }
 
     scanner.close();
   }

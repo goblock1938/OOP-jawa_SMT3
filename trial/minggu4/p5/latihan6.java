@@ -6,10 +6,11 @@ public class latihan6 {
     String str = "Java";
 
     StringBuffer buffer = new StringBuffer(str);
-    if (str.equals(buffer)) {
+
+    if (str.equals(buffer))
       System.out.println("Both are equal");
-    } else {
+    else
       System.out.println("Both are not equal");
-    }
+    // not equal karena berbeda memory
   }
 }

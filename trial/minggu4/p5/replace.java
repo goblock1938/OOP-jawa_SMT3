@@ -6,5 +6,6 @@ public class replace {
 
     nama = nama.replace("Dor", "Ti");
     System.out.println(nama);
+    // mengganti dor dari kata "dora" dengan kata ti menjadi "tia"
   }
 }
