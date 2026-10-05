@@ -20,17 +20,15 @@ Di dalam repositori ini, saya mempraktikkan berbagai konsep inti OOP di Java, an
 
 ### 📂 Struktur Repositori
 
-Agar rapi dan memisahkan antara kode sumber (`.java`) dan hasil kompilasi (`.class`), file dan kode diatur dengan struktur berikut:
+file dan kode diatur dengan struktur berikut:
 
 ```text
 Java_SMT3/
-├── class-and-object/ # Implementasi dasar Class dan Object
 ├── encapsulation/    # Latihan access modifiers dan encapsulation
 ├── inheritance/      # Latihan pewarisan (extends)
 ├── polymorphism/     # Latihan polimorfisme (overriding & overloading)
 ├── abstraction/      # Latihan Abstract Class dan Interface
-├── trial/            # Eksperimen kode bebas dan contoh syntax
-├── tugasLatihan/            # Eksperimen kode bebas dan contoh syntax
+├── trial/            # Eksperimen kode bebas dan tugas praktikum
 └── README.md         # Dokumentasi repositori
 ```
 
@@ -44,6 +42,10 @@ Langkah-langkah menjalankan kode melalui terminal:
 ```bash
 # Buka terminal pindah ke folder Java kalian
 cd nama_folder/
+
+# compile file java menjadi file class jikalau memiliki file class yang terpisah
+# (opsional)
+javac namaFile.java
 
 # compile file Java kalian ke bentuk file binary
 java namaFile.java
