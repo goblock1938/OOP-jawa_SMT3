@@ -19,11 +19,7 @@ public class Anggota {
     return nama;
   }
 
-  public String getAlamat() {
-    return alamat;
-  }
-
-  public void tampilkanInfoAnggota() {
+  public void tampilkanInfo() {
     System.out.println("Anggota: " + nama + " (" + idAnggota + ") - " + alamat);
   }
 }

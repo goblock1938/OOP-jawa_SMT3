@@ -1,30 +1,44 @@
 package UTS;
 
 public class Peminjaman extends Transaksi {
-  private Buku bukuDipinjam;
+  private Buku buku;
   private int lamaHari;
+  private boolean aktif;
+  private boolean sudahDiproses;
 
-  public Peminjaman(String idTransaksi, Anggota anggota, Petugas petugas, Buku bukuDipinjam, int lamaHari) {
+  public Peminjaman(String idTransaksi, Anggota anggota, Petugas petugas, Buku buku, int lamaHari) {
     super(idTransaksi, anggota, petugas);
-    this.bukuDipinjam = bukuDipinjam;
+    this.buku = buku;
     this.lamaHari = lamaHari;
+  }
+
+  public boolean isAktif() {
+    return aktif;
+  }
+
+  public boolean prosesPengembalian() {
+    if (!aktif) {
+      return false;
+    }
+    buku.tambahStok(1);
+    aktif = false;
+    return true;
   }
 
   @Override
   public void prosesTransaksi() {
-    System.out.println("\n--- PROSES PEMINJAMAN BUKU ---");
-    System.out.println("ID Transaksi : " + idTransaksi);
-    anggota.tampilkanInfoAnggota();
-    petugas.infoPetugas();
-    System.out.println("Buku Dipinjam: " + bukuDipinjam.getJudul() + " selama " + lamaHari + " hari.");
-
-    if (bukuDipinjam.getStok() > 0) {
-      bukuDipinjam.kurangiStok(1);
-      this.pembayaran = new Pembayaran("PAY-PIN-" + idTransaksi, 0.0, "Gratis/Peminjaman");
-      System.out.println("Status       : Peminjaman Berhasil Disetujui!");
-    } else {
-      System.out.println("Status       : Gagal, Stok Buku Kosong!");
+    if (sudahDiproses) {
+      System.out.println("Peminjaman " + getIdTransaksi() + " sudah diproses.");
+      return;
     }
-    pembayaran.cetakStrukPembayaran();
+    System.out.println("\n=== PEMINJAMAN " + getIdTransaksi() + " ===");
+    tampilkanPihak();
+    if (buku.kurangiStok(1)) {
+      aktif = true;
+      sudahDiproses = true;
+      System.out.println("Berhasil meminjam " + buku.getJudul() + " selama " + lamaHari + " hari.");
+    } else {
+      System.out.println("Peminjaman gagal: stok buku kosong.");
+    }
   }
 }

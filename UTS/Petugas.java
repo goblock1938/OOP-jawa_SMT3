@@ -2,22 +2,14 @@ package UTS;
 
 public class Petugas {
   private String idPetugas;
-  private String namaPetugas;
+  private String nama;
 
-  public Petugas(String idPetugas, String namaPetugas) {
+  public Petugas(String idPetugas, String nama) {
     this.idPetugas = idPetugas;
-    this.namaPetugas = namaPetugas;
+    this.nama = nama;
   }
 
-  public String getIdPetugas() {
-    return idPetugas;
-  }
-
-  public String getNamaPetugas() {
-    return namaPetugas;
-  }
-
-  public void infoPetugas() {
-    System.out.println("Petugas Layanan: " + namaPetugas + " (" + idPetugas + ")");
+  public void tampilkanInfo() {
+    System.out.println("Dilayani petugas: " + nama + " (" + idPetugas + ")");
   }
 }

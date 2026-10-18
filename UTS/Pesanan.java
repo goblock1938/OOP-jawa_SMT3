@@ -1,32 +1,32 @@
 package UTS;
 
 public class Pesanan extends Transaksi {
-  private Buku bukuDibeli;
-  private int jumlahBeli;
-  private double totalHarga;
+  private Buku buku;
+  private int jumlah;
+  private String metodePembayaran;
+  private boolean sudahDiproses;
 
-  public Pesanan(String idTransaksi, Anggota anggota, Petugas petugas, Buku bukuDibeli, int jumlahBeli) {
+  public Pesanan(String idTransaksi, Anggota anggota, Petugas petugas, Buku buku, int jumlah,
+      String metodePembayaran) {
     super(idTransaksi, anggota, petugas);
-    this.bukuDibeli = bukuDibeli;
-    this.jumlahBeli = jumlahBeli;
-    this.totalHarga = bukuDibeli.getHargaJual() * jumlahBeli;
+    this.buku = buku;
+    this.jumlah = jumlah;
+    this.metodePembayaran = metodePembayaran;
   }
 
   @Override
   public void prosesTransaksi() {
-    System.out.println("\n--- PROSES PESANAN PEMBELIAN BUKU ---");
-    System.out.println("ID Transaksi : " + idTransaksi);
-    anggota.tampilkanInfoAnggota();
-    petugas.infoPetugas();
-    System.out.println("Buku Dibeli  : " + bukuDibeli.getJudul() + " (" + jumlahBeli + " pcs)");
-
-    if (bukuDibeli.getStok() >= jumlahBeli) {
-      bukuDibeli.kurangiStok(jumlahBeli);
-      this.pembayaran = new Pembayaran("PAY-ORD-" + idTransaksi, totalHarga, "QRIS / Transfer");
-      System.out.println("Status       : Pembelian Buku Berhasil!");
-      pembayaran.cetakStrukPembayaran();
-    } else {
-      System.out.println("Status       : Gagal, Stok Toko Tidak Mencukupi!");
+    if (sudahDiproses) {
+      System.out.println("Pesanan " + getIdTransaksi() + " sudah diproses.");
+      return;
     }
+    System.out.println("\n=== PESANAN " + getIdTransaksi() + " ===");
+    tampilkanPihak();
+    if (!buku.kurangiStok(jumlah)) {
+      System.out.println("Pesanan gagal: stok buku tidak mencukupi.");
+      return;
+    }
+    sudahDiproses = true;
+    new Pembayaran("PAY-" + getIdTransaksi(), buku.getHargaJual() * jumlah, metodePembayaran).cetakStruk();
   }
 }
