@@ -4,27 +4,7 @@ Program Java sederhana untuk studi kasus 6 UTS Praktikum Pemrograman Berbasis
 Objek. BadWolf Store mengelola katalog buku, stok, anggota, peminjaman,
 pengembalian, pesanan buku, dan pembayaran.
 
-## Audit kompleksitas
-
-Struktur saat ini mengikuti kelas-kelas yang disebutkan pada soal dan tidak
-menggunakan dependensi eksternal. `MainApp` memakai array `Transaksi[]` untuk
-menjalankan peminjaman, pengembalian, dan pesanan secara polimorfik.
-
-Temuan penyederhanaan kecil:
-
-- `Pengembalian.sudahDiproses` menyimpan status yang sudah dijaga oleh
-  `Peminjaman.aktif`. Pengembalian kedua sudah ditolak oleh
-  `Peminjaman.prosesPengembalian()`, sehingga flag tersebut dapat dihapus dan
-  kondisinya cukup menggunakan nilai balik metode itu. Perilakunya tetap sama;
-  perubahan tidak diterapkan dalam audit ini.
-
-Kelas `Penulis`, `Penerbit`, `Stok`, dan `Pembayaran` bukan duplikasi yang perlu
-dihapus: semuanya mewakili data/peran yang memang diminta soal. `Stok` juga
-menjadi satu tempat untuk mengatur perubahan jumlah stok. `Transaksi` dibuat
-konkret (tanpa `abstract`) sesuai permintaan; transaksi khusus mewarisi dan
-menimpa `prosesTransaksi()`.
-
-## Struktur file
+## Struktur file & UML Class
 
 ```text
 UTS/
@@ -43,6 +23,100 @@ UTS/
 └── UML-Class.md       # Diagram kelas Mermaid
 ```
 
+```mermaid
+classDiagram
+    class Buku {
+        -String kodeBuku
+        -String judul
+        -Penulis penulis
+        -Penerbit penerbit
+        -Stok stok
+        -double hargaJual
+        +kurangiStok(jumlah) boolean
+        +tambahStok(jumlah) void
+        +tampilkanInfo() void
+    }
+    class Anggota {
+        -String idAnggota
+        -String nama
+        -String alamat
+        +getIdAnggota() String
+        +getNama() String
+        +tampilkanInfo() void
+    }
+    class Petugas {
+        -String idPetugas
+        -String nama
+        +tampilkanInfo() void
+    }
+    class Penulis {
+        -String nama
+        +getNama() String
+    }
+    class Penerbit {
+        -String nama
+        +getNama() String
+    }
+    class Stok {
+        -int jumlah
+        +kurangi(jumlah) boolean
+        +tambah(jumlah) void
+    }
+    class Pembayaran {
+        -String idPembayaran
+        -double jumlahBayar
+        -String metode
+        +cetakStruk() void
+    }
+    class Transaksi {
+        -String idTransaksi
+        -Anggota anggota
+        -Petugas petugas
+        +getIdTransaksi() String
+        +getAnggota() Anggota
+        #tampilkanPihak() void
+        +prosesTransaksi() void
+    }
+    class Peminjaman {
+        -Buku buku
+        -int lamaHari
+        -boolean aktif
+        -boolean sudahDiproses
+        +isAktif() boolean
+        +prosesPengembalian() boolean
+        +prosesTransaksi() void
+    }
+    class Pengembalian {
+        -Peminjaman peminjaman
+        -boolean sudahDiproses
+        +prosesTransaksi() void
+    }
+    class Pesanan {
+        -Buku buku
+        -int jumlah
+        -String metodePembayaran
+        -boolean sudahDiproses
+        +prosesTransaksi() void
+    }
+    class MainApp {
+        +main(args) void
+    }
+
+    Transaksi <|-- Peminjaman
+    Transaksi <|-- Pengembalian
+    Transaksi <|-- Pesanan
+    Buku --> Penulis
+    Buku --> Penerbit
+    Buku *-- Stok
+    Peminjaman --> Buku
+    Peminjaman --> Anggota
+    Peminjaman --> Petugas
+    Pengembalian --> Peminjaman
+    Pesanan --> Buku
+    Pesanan ..> Pembayaran : membuat struk
+    MainApp ..> Transaksi : array dan proses polimorfik
+```
+
 Seluruh file Java berada di package `UTS`. Setiap class memakai enkapsulasi:
 atributnya `private`, sedangkan operasi yang dibutuhkan class lain disediakan
 melalui constructor dan method publik.
@@ -54,20 +128,20 @@ publik menerima nilai untuk atribut utama class, lalu method publik menjadi
 jalur untuk membaca data atau menjalankan operasi bisnis. `Transaksi` memiliki
 method `protected` untuk kebutuhan subclass.
 
-| File / class | Atribut | Constructor dan method penting |
-|---|---|---|
-| `MainApp.java` / `MainApp` | Tidak menyimpan state aplikasi. | `static void main(String[] args)` membuat objek contoh, katalog `Buku[]`, dan array `Transaksi[]`, lalu menampilkan katalog serta menjalankan transaksi. |
-| `Buku.java` / `Buku` | `String kodeBuku`, `String judul`, `Penulis penulis`, `Penerbit penerbit`, `Stok stok`, `double hargaJual`. | Constructor menerima kode, judul, penulis, penerbit, jumlah stok awal (`int`), dan harga (`double`). Getter mengembalikan kode/judul (`String`), stok (`int`), serta harga (`double`). `kurangiStok(int)` mengembalikan `boolean`; `tambahStok(int)` dan `tampilkanInfo()` mengembalikan `void`. |
-| `Stok.java` / `Stok` | `int jumlah`. | Constructor menerima jumlah awal. `getJumlah()` mengembalikan `int`; `kurangi(int)` mengembalikan `boolean`; `tambah(int)` mengembalikan `void`. |
-| `Penulis.java` / `Penulis` | `String nama`. | Constructor menerima nama. `getNama()` mengembalikan `String`. Dipakai `Buku` untuk menampilkan informasi penulis. |
-| `Penerbit.java` / `Penerbit` | `String nama`. | Constructor menerima nama. `getNama()` mengembalikan `String`. Dipakai `Buku` untuk menampilkan informasi penerbit. |
-| `Anggota.java` / `Anggota` | `String idAnggota`, `String nama`, `String alamat`. | Constructor menerima ID, nama, dan alamat. `getIdAnggota()` serta `getNama()` mengembalikan `String`; `tampilkanInfo()` mengembalikan `void`. |
-| `Petugas.java` / `Petugas` | `String idPetugas`, `String nama`. | Constructor menerima ID dan nama. `tampilkanInfo()` mengembalikan `void`. |
-| `Transaksi.java` / `Transaksi` | `String idTransaksi`, `Anggota anggota`, `Petugas petugas`. | Constructor menerima ID transaksi, anggota, dan petugas. Getter ID mengembalikan `String`; getter anggota mengembalikan `Anggota`. `tampilkanPihak()` bersifat `protected void`. `prosesTransaksi()` bersifat `public void` dan menyediakan perilaku umum untuk objek dasar. |
-| `Peminjaman.java` / `Peminjaman` | `Buku buku`, `int lamaHari`, `boolean aktif`, `boolean sudahDiproses`. | Constructor menerima data transaksi, buku, dan lama pinjam. `isAktif()` mengembalikan `boolean`; `prosesPengembalian()` mengembalikan `boolean`; override `prosesTransaksi()` mengembalikan `void`. Class ini mengubah stok melalui `Buku`. |
-| `Pengembalian.java` / `Pengembalian` | `Peminjaman peminjaman`, `boolean sudahDiproses`. | Constructor menerima ID, pinjaman yang dikembalikan, dan petugas. Override `prosesTransaksi()` mengembalikan `void`; delegasi ke `Peminjaman.prosesPengembalian()` menentukan apakah pengembalian dapat dilakukan. |
-| `Pesanan.java` / `Pesanan` | `Buku buku`, `int jumlah`, `String metodePembayaran`, `boolean sudahDiproses`. | Constructor menerima data transaksi, buku, jumlah beli, dan metode pembayaran. Override `prosesTransaksi()` mengembalikan `void`; menghitung total dari harga buku dan jumlah, lalu membuat objek `Pembayaran`. |
-| `Pembayaran.java` / `Pembayaran` | `String idPembayaran`, `double jumlahBayar`, `String metode`. | Constructor menerima ID, jumlah bayar, dan metode. `cetakStruk()` mengembalikan `void` dan mencetak ringkasan pembayaran. |
+| File / class                         | Atribut                                                                                                     | Constructor dan method penting                                                                                                                                                                                                                                                                   |
+| ------------------------------------ | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `MainApp.java` / `MainApp`           | Tidak menyimpan state aplikasi.                                                                             | `static void main(String[] args)` membuat objek contoh, katalog `Buku[]`, dan array `Transaksi[]`, lalu menampilkan katalog serta menjalankan transaksi.                                                                                                                                         |
+| `Buku.java` / `Buku`                 | `String kodeBuku`, `String judul`, `Penulis penulis`, `Penerbit penerbit`, `Stok stok`, `double hargaJual`. | Constructor menerima kode, judul, penulis, penerbit, jumlah stok awal (`int`), dan harga (`double`). Getter mengembalikan kode/judul (`String`), stok (`int`), serta harga (`double`). `kurangiStok(int)` mengembalikan `boolean`; `tambahStok(int)` dan `tampilkanInfo()` mengembalikan `void`. |
+| `Stok.java` / `Stok`                 | `int jumlah`.                                                                                               | Constructor menerima jumlah awal. `getJumlah()` mengembalikan `int`; `kurangi(int)` mengembalikan `boolean`; `tambah(int)` mengembalikan `void`.                                                                                                                                                 |
+| `Penulis.java` / `Penulis`           | `String nama`.                                                                                              | Constructor menerima nama. `getNama()` mengembalikan `String`. Dipakai `Buku` untuk menampilkan informasi penulis.                                                                                                                                                                               |
+| `Penerbit.java` / `Penerbit`         | `String nama`.                                                                                              | Constructor menerima nama. `getNama()` mengembalikan `String`. Dipakai `Buku` untuk menampilkan informasi penerbit.                                                                                                                                                                              |
+| `Anggota.java` / `Anggota`           | `String idAnggota`, `String nama`, `String alamat`.                                                         | Constructor menerima ID, nama, dan alamat. `getIdAnggota()` serta `getNama()` mengembalikan `String`; `tampilkanInfo()` mengembalikan `void`.                                                                                                                                                    |
+| `Petugas.java` / `Petugas`           | `String idPetugas`, `String nama`.                                                                          | Constructor menerima ID dan nama. `tampilkanInfo()` mengembalikan `void`.                                                                                                                                                                                                                        |
+| `Transaksi.java` / `Transaksi`       | `String idTransaksi`, `Anggota anggota`, `Petugas petugas`.                                                 | Constructor menerima ID transaksi, anggota, dan petugas. Getter ID mengembalikan `String`; getter anggota mengembalikan `Anggota`. `tampilkanPihak()` bersifat `protected void`. `prosesTransaksi()` bersifat `public void` dan menyediakan perilaku umum untuk objek dasar.                     |
+| `Peminjaman.java` / `Peminjaman`     | `Buku buku`, `int lamaHari`, `boolean aktif`, `boolean sudahDiproses`.                                      | Constructor menerima data transaksi, buku, dan lama pinjam. `isAktif()` mengembalikan `boolean`; `prosesPengembalian()` mengembalikan `boolean`; override `prosesTransaksi()` mengembalikan `void`. Class ini mengubah stok melalui `Buku`.                                                      |
+| `Pengembalian.java` / `Pengembalian` | `Peminjaman peminjaman`, `boolean sudahDiproses`.                                                           | Constructor menerima ID, pinjaman yang dikembalikan, dan petugas. Override `prosesTransaksi()` mengembalikan `void`; delegasi ke `Peminjaman.prosesPengembalian()` menentukan apakah pengembalian dapat dilakukan.                                                                               |
+| `Pesanan.java` / `Pesanan`           | `Buku buku`, `int jumlah`, `String metodePembayaran`, `boolean sudahDiproses`.                              | Constructor menerima data transaksi, buku, jumlah beli, dan metode pembayaran. Override `prosesTransaksi()` mengembalikan `void`; menghitung total dari harga buku dan jumlah, lalu membuat objek `Pembayaran`.                                                                                  |
+| `Pembayaran.java` / `Pembayaran`     | `String idPembayaran`, `double jumlahBayar`, `String metode`.                                               | Constructor menerima ID, jumlah bayar, dan metode. `cetakStruk()` mengembalikan `void` dan mencetak ringkasan pembayaran.                                                                                                                                                                        |
 
 ### Hubungan antarclass
 
